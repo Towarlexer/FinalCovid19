@@ -18,6 +18,7 @@ io().on('userlogged', (dato)=>{
         document.getElementById("usuarioconectado").innerText=dato.usuario;
         console.log('Logged User= '+ dato.usuario);
         document.getElementById("container-usuario").style.display="block";
+        logged=true;
     }
     
 });
