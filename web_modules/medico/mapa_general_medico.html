@@ -159,7 +159,7 @@
                 geocod=L.esri.Geocoding.geocodeService({apikey: apiKey})
 
             //conexion con el socket
-            function actualizar() { 
+            async function actualizar() { 
                 if (uno){
                     map.removeLayer(marker1);
                 }
@@ -181,9 +181,12 @@
                 const info = {};
                 const options = {
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify(info)
                     };
-                fetch('/map2', options);
+                await fetch('/map2', options);
 
             } 
 
