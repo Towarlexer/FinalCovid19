@@ -466,7 +466,6 @@ app.post ('/piediagram3',function (req, res){
 });
   
 app.post ('/map2',function (req, res){ 
-  io.on('connection', function (socket) {
   con.query('select DISTINCT tabla.Estado , cas.Recidencia from ( select DISTINCT t.Estado, t.Fecha, t.Cedula from covid19.estado t inner join ( select  Cedula, max(Fecha) as MaxDate  from covid19.estado group by Cedula  ) tm on t.Cedula = tm.Cedula and t.Fecha = tm.MaxDate order by Fecha DESC) as tabla , covid19.Caso as cas where tabla.Cedula = cas.Cedula union all select tabla.Resultado , tabla.Recidencia from (select DISTINCT t.Resultado, t.Fechaexamen, t.Cedula ,t.Recidencia from covid19.Caso as t inner join ( select  Cedula, max(Fechaexamen) as MaxDate  from covid19.Caso group by Cedula  ) tm on t.Cedula = tm.Cedula and t.Fechaexamen = tm.MaxDate where t.Resultado= "2" ) as tabla', function(err, dato){
     
     if (err) throw err;
@@ -478,7 +477,6 @@ app.post ('/map2',function (req, res){
     });
   
   });
-});
   
 });
 
