@@ -372,7 +372,7 @@ app.post ('/envestado',function (req, res){
 app.post ('/revestados',function (req, res){    
     var datos = req.body;
     var cedula= datos.cedula; 
-    con.query("select DISTINCT t.Estado, t.Fecha, t.Cedula from Covid19.estado t inner join ( select  Estado, max(Fecha) as MaxDate  from Covid19.estado group by Estado  ) tm on t.Estado = tm.Estado and t.Fecha = tm.MaxDate and t.Cedula = "+cedula+" order by Fecha DESC", function(err, data){
+    con.query("select DISTINCT t.Estado, t.Fecha, t.Cedula from covid19.estado t inner join ( select  Estado, max(Fecha) as MaxDate  from covid19.estado group by Estado  ) tm on t.Estado = tm.Estado and t.Fecha = tm.MaxDate and t.Cedula = "+cedula+" order by Fecha DESC", function(err, data){
       if (err) {return};
       if (data[0] != null){
         data =  Object.values(data);
@@ -397,7 +397,7 @@ app.post ('/envdoccaso',function (req, res){
   var datos = req.body;
   var busqueda= datos.est; 
   var valor= datos.bus; 
-  con.query("SELECT * FROM Covid19.Caso where Covid19.Caso.Cedula="+valor+" and Covid19.Caso.id = "+busqueda, function(err, data){  
+  con.query("SELECT * FROM covid19.Caso where covid19.Caso.Cedula="+valor+" and covid19.Caso.id = "+busqueda, function(err, data){  
     if (err) {throw err};
     if (data[0] != null){
       data =  Object.values(data[0]);
@@ -422,7 +422,7 @@ app.post ('/envdoccaso',function (req, res){
 //Toda esta sección envía a los graficos de linea...  
   
 app.post ('/graph',function (req, res){ 
-    con.query('SELECT a.Fechaexamen, COUNT(*) AS num FROM Covid19.Caso AS a GROUP BY a.Fechaexamen ORDER BY a.Fechaexamen;', function(err, dato){
+    con.query('SELECT a.Fechaexamen, COUNT(*) AS num FROM covid19.Caso AS a GROUP BY a.Fechaexamen ORDER BY a.Fechaexamen;', function(err, dato){
       if (err) throw err;
         dato =  Object.values(dato);
         io.emit('lineagrap', {
@@ -433,7 +433,7 @@ app.post ('/graph',function (req, res){
 });
   
 app.post ('/piediagram',function (req, res){ 
-    con.query('select tabla.numero , tabla.nombre from ( SELECT distinct count(est.Cedula) AS numero,est.Estado as nombre FROM Covid19.estado as est where est.Estado = "Curado" or est.Estado = "Muerte" GROUP BY nombre ORDER BY numero DESC ) as tabla union all select sum(tabla.numero ), "Infectados" from ( SELECT distinct count(est.Cedula) AS numero,est.Estado as nombre FROM Covid19.estado as est GROUP BY nombre ORDER BY numero DESC ) as tabla', function(err, dato){
+    con.query('select tabla.numero , tabla.nombre from ( SELECT distinct count(est.Cedula) AS numero,est.Estado as nombre FROM covid19.estado as est where est.Estado = "Curado" or est.Estado = "Muerte" GROUP BY nombre ORDER BY numero DESC ) as tabla union all select sum(tabla.numero ), "Infectados" from ( SELECT distinct count(est.Cedula) AS numero,est.Estado as nombre FROM covid19.estado as est GROUP BY nombre ORDER BY numero DESC ) as tabla', function(err, dato){
       if (err) throw err;
       dato =  Object.values(dato);
       io.emit('piegraph', {
@@ -444,7 +444,7 @@ app.post ('/piediagram',function (req, res){
 });
   
 app.post ('/piediagram2',function (req, res){ 
-    con.query('select tabla.numero , tabla.nombre from (SELECT distinct count(est.Cedula) AS numero,est.Estado as nombre FROM Covid19.estado as est where est.Estado = "Casa" or est.Estado = "Hospital" or est.Estado = "UCI" or est.Estado = "Muerte" GROUP BY nombre ORDER BY numero DESC ) as tabla', function(err, dato){
+    con.query('select tabla.numero , tabla.nombre from (SELECT distinct count(est.Cedula) AS numero,est.Estado as nombre FROM covid19.estado as est where est.Estado = "Casa" or est.Estado = "Hospital" or est.Estado = "UCI" or est.Estado = "Muerte" GROUP BY nombre ORDER BY numero DESC ) as tabla', function(err, dato){
       if (err) throw err;
       dato =  Object.values(dato);
       io.emit('piegraph2', {
@@ -455,7 +455,7 @@ app.post ('/piediagram2',function (req, res){
 });
   
 app.post ('/piediagram3',function (req, res){ 
-    con.query('SELECT count(da.Cedula) AS total,  s.Resultado FROM Covid19.Caso as da, Covid19.Resultado as s WHERE da.Resultado=s.idResultado group by  s.Resultado', function(err, dato){
+    con.query('SELECT count(da.Cedula) AS total,  s.Resultado FROM covid19.Caso as da, covid19.Resultado as s WHERE da.Resultado=s.idResultado group by  s.Resultado', function(err, dato){
       if (err) throw err;
       dato =  Object.values(dato);
       io.emit('piegraph3', {
@@ -467,7 +467,7 @@ app.post ('/piediagram3',function (req, res){
   
 app.post ('/map2',function (req, res){ 
   io.on('connection', function (socket) {
-  con.query('select DISTINCT tabla.Estado , cas.Recidencia from ( select DISTINCT t.Estado, t.Fecha, t.Cedula from Covid19.estado t inner join ( select  Cedula, max(Fecha) as MaxDate  from Covid19.estado group by Cedula  ) tm on t.Cedula = tm.Cedula and t.Fecha = tm.MaxDate order by Fecha DESC) as tabla , Covid19.Caso as cas where tabla.Cedula = cas.Cedula union all select tabla.Resultado , tabla.Recidencia from (select DISTINCT t.Resultado, t.Fechaexamen, t.Cedula ,t.Recidencia from Covid19.Caso as t inner join ( select  Cedula, max(Fechaexamen) as MaxDate  from Covid19.Caso group by Cedula  ) tm on t.Cedula = tm.Cedula and t.Fechaexamen = tm.MaxDate where t.Resultado= "2" ) as tabla', function(err, dato){
+  con.query('select DISTINCT tabla.Estado , cas.Recidencia from ( select DISTINCT t.Estado, t.Fecha, t.Cedula from covid19.estado t inner join ( select  Cedula, max(Fecha) as MaxDate  from covid19.estado group by Cedula  ) tm on t.Cedula = tm.Cedula and t.Fecha = tm.MaxDate order by Fecha DESC) as tabla , covid19.Caso as cas where tabla.Cedula = cas.Cedula union all select tabla.Resultado , tabla.Recidencia from (select DISTINCT t.Resultado, t.Fechaexamen, t.Cedula ,t.Recidencia from covid19.Caso as t inner join ( select  Cedula, max(Fechaexamen) as MaxDate  from covid19.Caso group by Cedula  ) tm on t.Cedula = tm.Cedula and t.Fechaexamen = tm.MaxDate where t.Resultado= "2" ) as tabla', function(err, dato){
     
     if (err) throw err;
     
