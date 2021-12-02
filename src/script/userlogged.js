@@ -1,3 +1,6 @@
+var logged=false;
+
+
 setTimeout(()=>{
     const info = {};
     const options = {
@@ -11,9 +14,12 @@ setTimeout(()=>{
 }, 150);
 
 io().on('userlogged', (dato)=>{
-    document.getElementById("usuarioconectado").innerText=dato.usuario;
-    console.log('Logged User= '+ dato.usuario);
-    document.getElementById("container-usuario").style.display="block";
+    if (!logged){
+        document.getElementById("usuarioconectado").innerText=dato.usuario;
+        console.log('Logged User= '+ dato.usuario);
+        document.getElementById("container-usuario").style.display="block";
+    }
+    
 });
 
 function confirmlogout(){
