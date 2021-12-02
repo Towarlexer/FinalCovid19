@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
     <head>
         <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title> Médicos - Mapa General </title>
         <link rel="stylesheet" type="text/css" href="/resources/css/mapa_general_style.css">
         <link rel="icon" href="/resources/images/covidicono.ico">
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/resources/script/sweetalert2.js"></script>
         <link href="/resources/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <script src="/resources/script/ionicons/dist/ionicons.js"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,14 +16,21 @@
         <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/resources/css/animate.min.css">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-        crossorigin="" />
-         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-        crossorigin="">
-         </script>
-         <script src="/resources/script/sweetalert2.js"></script>
-    </head>
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+   
+  <!-- Load Esri Leaflet from CDN -->
+  <script src="https://unpkg.com/esri-leaflet@3.0.0/dist/esri-leaflet.js"></script>
+  <script src="https://unpkg.com/esri-leaflet-vector@3.0.0/dist/esri-leaflet-vector.js"></script>
+
+
+  <!-- Load Esri Leaflet Geocoder from CDN -->
+  <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@3.0.0/dist/esri-leaflet-geocoder.css">
+  <script src="https://unpkg.com/esri-leaflet-geocoder@3.0.0/dist/esri-leaflet-geocoder.js"></script>
+</head>
 
     <body>
         <main class="main">
@@ -51,44 +61,21 @@
             <section class="register">
                 <div class="contain">
                     <h2>Mapa General</h2>
-                    <div class="cuadritos">
-                        <label class="cuadritos-content" for="Positivos">Casos Positivos</label>
-                        <input class="Data" type="text" id="Positivos">
-                    </div>
-                    
-                    <div class="cuadritos">
-                        <label class="cuadritos-content" for="Negativos">Casos Negativos</label>
-                        <input class="Data cuadritos-content" type="text" id="Negativos">
-                    </div>
-                    
-                    <div class="cuadritos">
-                        <label class="cuadritos-content" for="UCI">Casos en UCI</label>
-                        <input class="Data cuadritos-content" type="text"  id="UCI">
-                    </div>
-
-                    <div class="cuadritos">
-                        <label class="cuadritos-content" for="Recuperados">Recuperados</label>
-                        <input class="Data cuadritos-content" type="text" id="Recuperados">
-                    </div>
-
-                    <div class="cuadritos">
-                        <label class="cuadritos-content" for="Muertos">Fallecidos</label>
-                        <input class="Data cuadritos-content" type="text" id="Muertos">
-                     </div>
+                        <form id="myForm">
+                            <button onclick="actualizar() " id="control" type="submit" name="btnsubmit" style="display: none;">Graficar</button>
+                            <section class="map">
+                            <div class="map" id="map" >
+                            </div></section>
+                        </form>
                 </div>
-
-                <div id="map"></div>
             </section>
         </main>
         
         <script src="/socket.io/socket.io.js"></script>
         <script src="/resources/script/userlogged.js"></script>
-        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-        crossorigin=""></script>
-        <script src="/resources/script/map.js"></script>
-
         <script>
+
+            setTimeout(()=>{actualizar()},0);
 
             var logo = document.querySelector(".logo");
             logo.addEventListener("mouseover", OverLogo, false);
@@ -153,6 +140,162 @@
                 menulog.classList.remove("animate__shakeX");
 
             }
+            //mapa
+            var marker1; var uno=false;
+            var marker2; var dos=false;
+            var marker3; var tres=false;
+            var marker4; var cuatro=false;
+            var marker5; var cinco=false;
+            var marker6; var seis=false;
+            let lat = 10.984719;
+            let long = -74.811302;
+            let map= L.map('map').setView([lat, long], 12);
+            
+            const apiKey = "AAPK869630e28dbe436297a16b4d99e6f455jRhpYc9MeP2REcf-VhWqO7Lb0b6Y2X4C7wxAhdtIWleLdFTqLrPkdwrAIsrGs5gw";
+
+            const basemapEnum = "ArcGIS:Navigation";
+            L.esri.Vector.vectorBasemapLayer(basemapEnum, {
+                apiKey: apiKey
+                }).addTo(map);
+                geocod=L.esri.Geocoding.geocodeService({apikey: apiKey})
+
+            //conexion con el socket
+            function actualizar() { 
+                if (uno){
+                    map.removeLayer(marker1);
+                }
+                if (dos){
+                    map.removeLayer(marker2);
+                }
+                if (tres){
+                    map.removeLayer(marker3);
+                }
+                if (cuatro){
+                    map.removeLayer(marker4);
+                }
+                if (cinco){
+                    map.removeLayer(marker5);
+                }
+                if (seis){
+                    map.removeLayer(marker6);
+                }
+                const info = {};
+                const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(info)
+                    };
+                fetch('/map2', options);
+
+            } 
+
+            var socket = io() ;
+                
+            socket.on('mapa2', function (dato){
+                var ubi = new Array() ;
+                var esta  =  new Array() ;
+                var lat  =  new Array() ;
+                var long  =  new Array() ;
+                dat = dato.lineadata; 
+                for (var i = 0; i < dat.length; i++) {
+                    ubi[i] = dat[i]['Recidencia']
+                }
+                
+                for (var i = 0; i < dat.length; i++) {
+                    esta[i] = dat[i]['Estado']
+                }   
+            
+                console.log(ubi)
+
+            for (var i = 0; i < ubi.length; i++) {
+            
+                
+                    if (esta[i] == '2') { 
+                        
+                    geocod.geocode().address(ubi[i]).city('Barranquilla').region('Atlantico').run(function (err, results, response) {
+                        if (err) {
+                                console.log(errs);
+                                return;
+                        }
+                        marker1 = L.circleMarker([results.results[0].latlng.lat,results.results[0].latlng.lng],{color: '#59EA10',radius: 10}).addTo(map).bindPopup("Negativo").openPopup();
+                        map.addLayer(marker1);
+                        uno= true;  
+                            });
+                
+                        
+                    }
+                    if (esta[i] == 'Casa') { 
+
+                        
+                    geocod.geocode().address(ubi[i]).city('Barranquilla').region('Atlantico').run(function (err, results, response) {
+                        if (err) {
+                                console.log(errs);
+                                return;
+                        }
+                        marker2 = L.circleMarker([results.results[0].latlng.lat,results.results[0].latlng.lng],{color: '#F4F812',radius: 10}).addTo(map).bindPopup("Tratamiento en casa").openPopup();
+                        map.addLayer(marker2);
+                        dos= true;
+                        });
+                    }
+
+                    if (esta[i] == 'UCI') { 
+                        geocod.geocode().address(ubi[i]).city('Barranquilla').region('Atlantico').run(function (err, results, response) {
+                            if (err) {
+                                    console.log(errs);
+                                    return;
+                            }
+                        marker3 = L.circleMarker([results.results[0].latlng.lat,results.results[0].latlng.lng],{color: '#F88F12',radius: 10}).addTo(map).bindPopup("UCI").openPopup();
+                        map.addLayer(marker3);
+                        tres= true;
+                                });
+                        }
+                    
+                    if (esta[i] == 'Curado') { 
+                        geocod.geocode().address(ubi[i]).city('Barranquilla').region('Atlantico').run(function (err, results, response) {
+                            if (err) {
+                                    console.log(errs);
+                                    return;
+                            }
+                            marker4 = L.circleMarker([results.results[0].latlng.lat,results.results[0].latlng.lng],{color: '#F978C6',radius: 10}).addTo(map).bindPopup("Curado").openPopup(); 
+                            map.addLayer(marker4);
+                            cuatro= true;
+                                });
+                    
+                    }
+                    if (esta[i] == 'Muerte') { 
+                        geocod.geocode().address(ubi[i]).city('Barranquilla').region('Atlantico').run(function (err, results, response) {
+                            if (err) {
+                                    console.log(errs);
+                                    return;
+                            }
+                            marker5 = L.circleMarker([results.results[0].latlng.lat,results.results[0].latlng.lng],{color: '#FA0101',radius: 10}).addTo(map).bindPopup("Muerto").openPopup();  
+                            map.addLayer(marker5);
+                            cinco= true;
+                                });
+                        
+                    }   
+
+                    if (esta[i] == 'Hospital') { 
+                        geocod.geocode().address(ubi[i]).city('Barranquilla').region('Atlantico').run(function (err, results, response) {
+                            if (err) {
+                                    console.log(errs);
+                                    return;
+                            }
+                            marker6 = L.circleMarker([results.results[0].latlng.lat,results.results[0].latlng.lng],{color: '#22E3BA',radius: 10}).addTo(map).bindPopup("Hospital").openPopup();  
+                            map.addLayer(marker6);
+                            seis= true;
+                                });
+                        
+                    }  
+
+            
+            }
+
+
+            });
+
 
 
 

@@ -12,6 +12,10 @@ est[1] = 'Cedula'
 
 //enviar las busquedas
 function caso() { 
+    for (var i = 0; i<5; i++) {
+      document.getElementById('tb'+(i+1).toString()).innerText ="";
+      document.getElementById('te'+(i+1).toString()).innerText ="";
+    } 
     var bus= document.getElementById('idbusca').value;
     var est= document.getElementById('resul').value;
     console.log('ID de búsqueda es: ' + bus);
@@ -36,19 +40,19 @@ function caso() {
  var socket = io() ;
 
  socket.on('paciente', function (dato){
-     dat = dato.informacion;
 
- 
-     document.getElementById('ta1').innerText = "  ID "
-     document.getElementById('ta2').innerText = " Cedula"
-     document.getElementById('ta3').innerText = " Nombre"
-     document.getElementById('ta4').innerText = " Apellido"
-     document.getElementById('ta5').innerText = " Sexo"
-     document.getElementById('ta6').innerText = " Fecha nacimiento"
-     document.getElementById('ta7').innerText = " Direcciòn residencia "
-     document.getElementById('ta8').innerText = " Direcciòn trabajo"
-    
-     
+    document.getElementById('ta1').innerText = "  ID "
+    document.getElementById('ta2').innerText = " Cedula"
+    document.getElementById('ta3').innerText = " Nombre"
+    document.getElementById('ta4').innerText = " Apellido"
+    document.getElementById('ta5').innerText = " Sexo"
+    document.getElementById('ta6').innerText = " Fecha nacimiento"
+    document.getElementById('ta7').innerText = " Direcciòn residencia "
+    document.getElementById('ta8').innerText = " Direcciòn trabajo"
+
+    if (!dato.invalid){
+      dat = dato.informacion;
+
      document.getElementById('td1').innerText = dat[0]
      document.getElementById('td2').innerText = dat[1]
      document.getElementById('td3').innerText = dat[2]
@@ -59,7 +63,23 @@ function caso() {
      document.getElementById('td7').innerText = dat[6]
      document.getElementById('td8').innerText = dat[7]
     
-     console.log("recibiendo infotmacion ")
+     
+
+    } else{
+
+      document.getElementById('td1').innerText = "N/A";
+     document.getElementById('td2').innerText = "N/A";
+     document.getElementById('td3').innerText = "N/A";
+     document.getElementById('td4').innerText = "N/A";
+     document.getElementById('td5').innerText = "N/A";
+     document.getElementById('td6').innerText = "N/A";
+     document.getElementById('td7').innerText = "N/A";
+     document.getElementById('td8').innerText = "N/A";
+
+
+    }
+     
+    console.log("recibiendo infotmacion ")
 
 });
 

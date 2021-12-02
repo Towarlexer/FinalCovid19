@@ -42,31 +42,33 @@
             </div>
 
                 <section class="register">
-                    <div class="contain">
-                    <h2>Datos del Paciente</h2>
-                    <input class="Data" type="text" id="idcedu" NAME=cedula placeholder="Cédula">
-                    <input class="Data" type="text" id="idnombre" NAME=nombre placeholder="Nombre">
-                    <input class="Data" type="text" id="idapellido"  NAME=apellido placeholder="Apellido">
-                    <input class="Data" type="text" id="iddirreci"  NAME=Recidencia placeholder="Direccion de Residencia">
-                    <input class="Data" type="text" id="iddirtra"  NAME=Trabajo placeholder="Direccion de Trabajo">
-                    <select id="sexid" name="sexo">     
-                        <option value="none">Seleccione el sexo del paciente</option>
-                    </select>
-                     <select name="resul" id="resul">
-                        <option value="none">Seleccione el Resultado de la Prueba</option>
-                    </select>
                     
-                    <label for="idnaci" style="font-family: 'Bebas Neue', cursive;
-                    letter-spacing: 2px;
-                    color: var(--light);">Fecha de Nacimiento</label>
-                    <input class="Fechas" type="date" NAME="Fnacimiento" id="idfnaci" value="aa" min="1900-01-01" max="2022-12-31">
-                   <label for="idfexam" style="font-family: 'Bebas Neue', cursive;
-                   letter-spacing: 2px;
-                   color: var(--light);">Fecha de Examen</label>
-                    </p><input class="Fechas" type="date" NAME="Fexamen" id="idfexam"  value="aa" min="1900-01-01" max="2022-12-31">
-                    <form>
-                        <input class="boton" onclick="caso()" type="submit" value="Enviar">
-                    </form>
+                    <div class="contain">
+                        <form onsubmit="caso();">    
+                            <h2>Datos del Paciente</h2>
+                            <input class="Data" type="text" id="idcedu" NAME=cedula placeholder="Cédula" required>
+                            <input class="Data" type="text" id="idnombre" NAME=nombre placeholder="Nombre" required>
+                            <input class="Data" type="text" id="idapellido"  NAME=apellido placeholder="Apellido" required>
+                            <input class="Data" type="text" id="iddirreci"  NAME=Recidencia placeholder="Direccion de Residencia" required>
+                            <input class="Data" type="text" id="iddirtra"  NAME=Trabajo placeholder="Direccion de Trabajo" required>
+                            <select id="sexid" name="sexo" required>     
+                                <option value="">Seleccione el sexo del paciente</option>
+                            </select>
+                            <select name="resul" id="resul" required>
+                                <option value="">Seleccione el Resultado de la Prueba</option>
+                            </select>
+                            
+                            <label for="idnaci" style="font-family: 'Bebas Neue', cursive;
+                            letter-spacing: 2px;
+                            color: var(--light);">Fecha de Nacimiento</label>
+                            <input class="Fechas" type="date" NAME="Fnacimiento" id="idfnaci" value="aa" min="1900-01-01" max="2022-12-31" required>
+                        <label for="idfexam" style="font-family: 'Bebas Neue', cursive;
+                        letter-spacing: 2px;
+                        color: var(--light);">Fecha de Examen</label>
+                            </p><input class="Fechas" type="date" NAME="Fexamen" id="idfexam"  value="aa" min="1900-01-01" max="2022-12-31" required>
+                            
+                                <input class="boton" type="submit" value="Enviar">
+                        </form>
                     </div>
                 </section>
            

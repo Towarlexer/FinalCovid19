@@ -333,12 +333,20 @@ app.post ('/envcaso',function (req, res){
   }
     con.query("SELECT * FROM covid19.caso where covid19.caso."+busqueda+"="+valor+";", function(err, data){
       if (err) throw err;
-      data =  Object.values(data[0]);
-      console.log('Resultado de la búsqueda:');
-      console.log(data);
-      io.emit('paciente', { 
-        informacion:data
-      });
+      if (data[0] != null){
+        data =  Object.values(data[0]);
+        console.log('Resultado de la búsqueda:');
+        console.log(data);
+        io.emit('paciente', { 
+          informacion:data,
+          invalid: false
+        });
+      } else{
+        io.emit('paciente', { 
+          informacion:null,
+          invalid:true
+        });
+      }
     });
   res.end(""); 
 });
@@ -365,11 +373,21 @@ app.post ('/revestados',function (req, res){
     var datos = req.body;
     var cedula= datos.cedula; 
     con.query("select DISTINCT t.Estado, t.Fecha, t.Cedula from Covid19.estado t inner join ( select  Estado, max(Fecha) as MaxDate  from Covid19.estado group by Estado  ) tm on t.Estado = tm.Estado and t.Fecha = tm.MaxDate and t.Cedula = "+cedula+" order by Fecha DESC", function(err, data){
-      if (err) throw err;
-      data =  Object.values(data);       
-      io.emit('estadospacientes', { 
-          informacion:data
-      });       
+      if (err) {return};
+      if (data[0] != null){
+        data =  Object.values(data);
+        console.log('Resultado de la búsqueda:');
+        console.log(data);
+        io.emit('estadospacientes', { 
+          informacion:data,
+          invalid: false
+        });
+      } else{
+        io.emit('estadospacientes', { 
+          informacion:null,
+          invalid:true
+        });
+      }       
     }); 
     res.end(""); 
 });
@@ -380,11 +398,21 @@ app.post ('/envdoccaso',function (req, res){
   var busqueda= datos.est; 
   var valor= datos.bus; 
   con.query("SELECT * FROM Covid19.Caso where Covid19.Caso.Cedula="+valor+" and Covid19.Caso.id = "+busqueda, function(err, data){  
-    if (err) throw err;
-    data =  Object.values(data[0]);
-    io.emit('paciente', {   
-      informacion:data     
-    });    
+    if (err) {throw err};
+    if (data[0] != null){
+      data =  Object.values(data[0]);
+      console.log('Resultado de la búsqueda:');
+      console.log(data);
+      io.emit('paciente', { 
+        informacion:data,
+        invalid: false
+      });
+    } else{
+      io.emit('paciente', { 
+        informacion:null,
+        invalid:true
+      });
+    }    
   });
   res.end("");
 });
@@ -438,14 +466,20 @@ app.post ('/piediagram3',function (req, res){
 });
   
 app.post ('/map2',function (req, res){ 
-    con.query('select DISTINCT tabla.Estado , cas.Recidencia from ( select DISTINCT t.Estado, t.Fecha, t.Cedula from Covid19.estado t inner join ( select  Cedula, max(Fecha) as MaxDate  from Covid19.estado group by Cedula  ) tm on t.Cedula = tm.Cedula and t.Fecha = tm.MaxDate order by Fecha DESC) as tabla , Covid19.Caso as cas where tabla.Cedula = cas.Cedula union all select tabla.Resultado , tabla.Recidencia from (select DISTINCT t.Resultado, t.Fechaexamen, t.Cedula ,t.Recidencia from Covid19.Caso as t inner join ( select  Cedula, max(Fechaexamen) as MaxDate  from Covid19.Caso group by Cedula  ) tm on t.Cedula = tm.Cedula and t.Fechaexamen = tm.MaxDate where t.Resultado= "2" ) as tabla', function(err, dato){
-      if (err) throw err;
-      dato =  Object.values(dato);
-      io.emit('mapa2', {
-        lineadata : dato
-      });
+  io.on('connection', function (socket) {
+  con.query('select DISTINCT tabla.Estado , cas.Recidencia from ( select DISTINCT t.Estado, t.Fecha, t.Cedula from Covid19.estado t inner join ( select  Cedula, max(Fecha) as MaxDate  from Covid19.estado group by Cedula  ) tm on t.Cedula = tm.Cedula and t.Fecha = tm.MaxDate order by Fecha DESC) as tabla , Covid19.Caso as cas where tabla.Cedula = cas.Cedula union all select tabla.Resultado , tabla.Recidencia from (select DISTINCT t.Resultado, t.Fechaexamen, t.Cedula ,t.Recidencia from Covid19.Caso as t inner join ( select  Cedula, max(Fechaexamen) as MaxDate  from Covid19.Caso group by Cedula  ) tm on t.Cedula = tm.Cedula and t.Fechaexamen = tm.MaxDate where t.Resultado= "2" ) as tabla', function(err, dato){
+    
+    if (err) throw err;
+    
+    dato =  Object.values(dato);
+   
+    io.emit('mapa2', {
+      lineadata : dato
     });
-  res.end("");
+  
+  });
+});
+  
 });
 
 

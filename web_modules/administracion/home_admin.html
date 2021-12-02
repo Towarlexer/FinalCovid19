@@ -41,19 +41,20 @@
        
             <section class="register">
                 <div class="contain">
-                <h2>Registro de Usuarios</h2>
-                <h4><h4 style="display: inline; color: rgb(67, 255, 98);">Señor Administrador</h4>, digite los datos del usuario a registrar</h4>
-                <input class="Data" type="text" id="cedula" NAME=cedula placeholder="Cédula">
-                <input class="Data" type="text" id="nombre" NAME=nombre placeholder="Nombre">
-                <input class="Data" type="text" id="apellido"  NAME=apellido placeholder="Apellido">
-                
-                <select id="rolid" name="Rol" placeholder="Rol">     
-                    <option value="none">Seleccione Rol del Usuario</option>
-                </select>
-                <input class="Data" type="text" id="Usuario"  NAME=Usuario placeholder="Usuario">
-                <input class="Data" type="password" id="contraseña"  NAME=contraseña placeholder="Contraseña">
-                <form>
-                    <input class="boton" onclick="registro()" type="submit" value="Registrar">
+                <form onsubmit="registro()">   
+                    <h2>Registro de Usuarios</h2>
+                    <h4><h4 style="display: inline; color: rgb(67, 255, 98);">Señor Administrador</h4>, digite los datos del usuario a registrar</h4>
+                    <input class="Data" type="text" id="cedula" NAME=cedula placeholder="Cédula" required>
+                    <input class="Data" type="text" id="nombre" NAME=nombre placeholder="Nombre" required>
+                    <input class="Data" type="text" id="apellido"  NAME=apellido placeholder="Apellido" required>
+                    
+                    <select id="rolid" name="Rol" placeholder="Rol" required>     
+                        <option value="">Seleccione Rol del Usuario</option>
+                    </select>
+                    <input class="Data" type="text" id="Usuario"  NAME=Usuario placeholder="Usuario" required>
+                    <input class="Data" type="password" id="contraseña"  NAME=contraseña placeholder="Contraseña" required>
+                    
+                        <input class="boton" type="submit" value="Registrar">
                 </form>
                 </div>
             </section>
