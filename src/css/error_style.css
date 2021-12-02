@@ -1,0 +1,65 @@
+html{
+    -webkit-appearance: none;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+body{
+    height: auto;
+    margin: 0 auto;
+    top: 0;
+    padding: 0;
+    font-family: 'Anton';
+    background-color: #ffffff;
+}
+.button{
+    color: initial;
+    cursor: pointer;
+    font-family: 'Anton';
+    position: absolute;
+    bottom: 7vh;
+    font-size: 3vmin;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-decoration: none;
+    border-radius: 10px;
+    transition: .6s;
+}
+.button:hover{
+    color: #f8574cf8;
+    font-size: 4vmin;
+    transition: .3s;
+    
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin:0 auto;
+    max-width: 50vmin;
+    width: 50%;
+    text-align: center;
+    height: 50vmin;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2vmin;
+    background-color: rgba(44, 44, 44, 0.952);
+    box-shadow: 0px 0px 15px #141414e7;
+    border-radius: 10px;
+}
+label{
+    position: absolute;
+    font-size: 3vmin;
+    color: #f8574cf8;
+    transform: translate(18%, 50%);
+    letter-spacing: 2vmin;
+    font-weight: 100;
+}
+img{
+    max-width:80%;
+    max-height:100%;
+    transform: translate(15%, 50%);
+}

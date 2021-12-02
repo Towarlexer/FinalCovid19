@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login System</title>
+    <link rel="stylesheet" href="resources/css/login_style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" 
+    rel="stylesheet">
+</head>
+<body>
+
+    <div class="bg-image"> </div>
+    <div class="login-form">
+
+        <h2>Access Authorization</h2>
+        <form action="/authorization" method="POST">
+            <label for="user">Username<span>*</span></label>
+            <input type="text" name="user" id="user" placeholder="" required=>
+            <label for="pass">Password<span>*</span></label>
+            <input type="password" name="pass" id="pass" placeholder="" maxlength = "20" required>
+            <input type="submit" class="btn-login" value="Login">
+        </form>
+    
+        <div class="container"><a href="/">Go back</a></div>
+        
+
+    </div>
+
+    <script src="/resources/script/sweetalert2.js"></script>
+    <% if (typeof alert != "undefined")  { %>
+        <script>
+            Swal.fire({
+            title:'<%= alertTitle %>',
+            text:'<%= alertMessage %>',
+            icon:'<%= alertIcon %>',
+            showConfirmButton: <%= showConfirmButton %>,
+            timer:  <%= timer %>
+            }).then(()=>{
+                window.location='/<%= ruta %>'
+            });
+        </script>
+    <% } %>
+
+
+</body>
+</html>

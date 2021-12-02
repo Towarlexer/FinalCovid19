@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Denied!</title>
+    <link rel="icon" href="/resources/images/covidicono.ico">
+    <link rel="stylesheet" href="/resources/css/denied_style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto&display=swap" 
+    rel="stylesheet">
+    <link rel="stylesheet" href="/resources/css/animate.min.css">
+</head>
+<body>
+    <div class="container">
+        <label>Access Denied!</label>
+        <img src="/resources/images/dennied.svg#Layer_1"></img>   
+    </div>
+
+    <a href="/" class="button">Go back to home</a>
+
+    <script src="/resources/script/sweetalert2.js"></script>
+    <script>
+        Swal.fire({
+        title: 'You have no permissions!',
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+        }
+        })
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <title> Covid-19 Barranquilla </title>
+        <link rel="stylesheet" type="text/css" href="/resources/css/index_style.css">
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+        <link rel="icon" href="/resources/images/covidicono.ico">
+        <link href="/resources/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="/resources/script/ionicons/dist/ionicons.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/resources/css/animate.min.css">
+        <script src="/resources/script/chart.js/dist/Chart.min.js"></script>
+        <link rel="stylesheet" href="/resources/fontawesome/css/all.css">
+    </head>
+
+    <body style="background-color: rgb(14, 14, 14);">
+
+        <header class="menu">
+            <div class="container">
+                <figure >
+                    <a href="#" ><img class="logo animate__animated" src="/resources/images/logo_covid.svg#Layer_1"></img></a>
+                    <label>Unidxs para confrontar la pandemia!</label>
+                </figure>
+                
+                <div class="menu-header">
+                    <nav class="navigation">
+                        <ul>   
+                            <li class="gotologin animate__animated"><a href="/login">Ingresar al Portal</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="container-slide">
+            <input type="radio" id="1" name="image-slide" hidden/>
+            <input type="radio" id="2" name="image-slide" hidden/>
+
+            <div class="slide">
+
+                <div class="item-slide">
+                    <img src="/resources/images/index_background.jpg">
+                    <div class="text-slide">
+                        <span class="info1">
+                            <h2 style="font-weight: bold; color: rgb(247, 248, 255); ">Conozca aquí las estadísticas del Covid-19 en la ciudad de Barranquilla</h2>
+                            <p>Señor usuario, recuerde que si tiene síntomas similares a los del covid-19 aíslece y comuníquese con su EPS de inmediato.
+                            Debemos seguir cuidándonos y evitar cualquier acción que genere riesgo de contagio.</p>
+                            <h5 style="color: rgb(253, 46, 115);">¡Nuestra salud depende de todos!</h5>
+                        </span>
+                    </div>
+                    
+                </div>
+    
+                <div class="item-slide">
+                    <img src="/resources/images/index2_background.jpg">
+                    <div class="text-slide">
+                        <span class="info2">
+                            <h2 style="font-weight: bold; color: rgb(255, 245, 110); ">¡ALERTA: Nueva variante Covid-19 Ómicron!</h2>
+                            <p>La detección de la nueva variante del SARS-CoV-2 ha disparado una vez más las alertas a escala mundial sobre todo en personas no vacunadas.</p>
+                            <h5 style="color: rgb(255, 245, 110); text-shadow: 0 0 5px rgb(255, 94, 0);">¡Vacúnate pronto y evita el riesgo de contagio!</h5>
+                        </span>
+                    </div>
+                </div>
+    
+            </div>
+            
+            <div class="pagination">
+                <label class="pagination-item" for="1" id="label1">
+                    <img src="/resources/images/index_background.jpg">
+                </label>
+
+                <label class="pagination-item" for="2" id="label2">
+                    <img src="/resources/images/index2_background.jpg">
+                </label>
+            </div>
+        </div>
+
+
+        <div class="mid-banner">
+
+            <div class="mensajexd animate__animated" style="display: flex;"><h1 >FELIZ </h1> <h1 style="display: inline; color: rgb(255, 36, 36);">NAVIDAD!</h1></div>
+
+        </div>
+
+        <main class="main">
+            
+            <section class="content">
+            
+                <div class="sect-container reveal">
+
+                    <div class="box">
+                        <h3>¿Qué es el Coronavirus?</h3>
+                        <p>
+                            Los coronavirus (CoV) son virus que surgen periódicamente en diferentes áreas del mundo 
+                            y que causan Infección Respiratoria Aguda (IRA), es decir gripa, que pueden llegar a ser leve, 
+                            moderada o grave.
+                        </p>
+                        <p style="font-weight: bold;">
+                            El nuevo Coronavirus (COVID-19) ha sido catalogado por la Organización Mundial de la Salud 
+                            como una emergencia en salud pública de importancia internacional (ESPII). Se han identificado casos  
+                            en todos los continentes y, el 6 de marzo se confirmó el primer caso en Colombia.
+                        </p>
+                        
+                        <p>
+                            La infección se produce cuando una persona enferma tose o estornuda
+                            y expulsa partículas del virus que entran en contacto con otras personas.    
+                        </p>    
+                    </div>
+                    <div class="box">
+                        <h3>¿A quiénes afecta y cuáles son sus síntomas?</h3>
+                        <p>
+                            Se conoce que cualquier persona puede infectarse, independientemente de su edad, pero hasta el momento se han registrado relativamente pocos casos de COVID-19 en niños. La enfermedad es mortal en raras ocasiones, y hasta ahora las víctimas mortales han sido personas de edad avanzada que ya padecían una enfermedad crónica como diabetes, asma o hipertensión.
+                        </p>
+                        <p style="font-weight: bold;">
+                            El nuevo Coronavirus causa una Infección Respiratoria Aguda (IRA), es decir una gripa, que puede ser leve, moderada o severa. Puede producir fiebre, tos, secreciones nasales (mocos) y malestar general. Algunos pacientes pueden presentar dificultad para respirar.
+                        </p>
+                    </div>
+                    <div class="box">
+                        <h3>¿Cómo prevenirlo?</h3>
+                        <p>
+                            La medida más efectiva para prevenir el COVID-19 es lavarse las manos correctamente, con agua y jabón. Hacerlo frecuentemente reduce hasta en 50% el riesgo de contraer coronavirus. De igual manera, se recomiendan otras medidas preventivas cotidianas para ayudar a prevenir la propagación de enfermedades respiratorias, tales como:
+                        </p>
+        
+                        <p style="font-weight: bold;">
+                            - Evita el contacto cercano con personas enfermas.
+                        </p>
+        
+                        <p style="font-weight: bold;">
+                            - Al estornudar, cúbrete con la parte interna del codo.
+                        </p>
+        
+                        <p style="font-weight: bold;">
+                            - Si tienes síntomas de resfriado, quédate en casa y usa tapabocas.
+                        </p>
+        
+                        <p style="font-weight: bold;">
+                            - Limpiar y desinfectar los objetos y las superficies que se tocan frecuentemente.
+                        </p>
+        
+                    </div>
+
+                </div>
+                
+            </section>
+    
+            <section class="content" >
+            <div class="box reveal" style="display: flex; flex-direction: column; align-items: center;"> 
+                <h3>Oprima el boton para actualizar la información de las graficas</h3>
+                <input class="boton" onclick="graficar(),pie(),pie2(),pie3()" id="control" type="submit" value="Actualizar">
+            </div>
+            </section>
+
+
+            <section class="content">
+                
+                <div class="box reveal">
+                    <h3>Casos Resgistrados por Día</h3>
+                    <canvas id="dias" style="margin-top: 10%; height:200; width:400; "></canvas>
+                </div>
+            </section>
+            <section class="content">
+                <div class="box reveal">
+                    <h3>Casos Totales</h3>
+                    <canvas id="casos" style="margin-top: 10%; height:200; width:400;"></canvas> 
+                </div>
+            </section>
+                <section class="content">
+                <div class="box reveal">
+                    <h3>Infectados</h3>
+                    <canvas id="infectados" style="margin-top: 10%; height:200; width:400;"></canvas> 
+                </div>
+            </section>
+            <section class="content">
+            <div class="box reveal">
+                <h3>Resultados</h3>
+                <canvas id="resultados" style="margin-top: 10%; height:200; width:400;"></canvas> 
+            </div>
+            </section>
+        
+        <script src="/socket.io/socket.io.js"></script>
+
+        </main>
+
+        
+
+        <footer>
+            <div class="footer-content">
+                <p style="font-weight: bold; text-shadow: 0 4 8px #ffffff;">Copyright &copy;2021-2022 FinalCovid19. Designed by: <span>ADiaz BYukopila LCamargo & JRico</span></p>
+            </div>
+        </footer>
+
+        <a class="gotoupbtn" href="#" id="go-up" style="display: none;"><i class="fas fa-arrow-up"></i></a>
+
+        <script>
+
+            window.addEventListener('scroll', reveal);
+
+            function reveal(){
+
+                var reveals=document.querySelectorAll('.reveal');
+
+                for(var i=0; i < reveals.length; i++){
+
+                    var windowheight = window.innerHeight;
+                    var revealtop = reveals[i].getBoundingClientRect().top;
+                    var revealpoint = 150;
+
+                    if(revealtop < windowheight - revealpoint){
+                        reveals[i].classList.add('active');
+                    } else{
+                        reveals[i].classList.remove('active');
+                    }
+
+                }
+
+            }
+
+
+            const menu = document.querySelector(".menu");
+            const btngoup = document.getElementById("go-up");
+            document.addEventListener("scroll", () => {
+        
+            // document.documentElement for chrome, firefox, ie or opera
+            // document.body for safari since that's where overflow is set in those browsers
+            if (document.documentElement.scrollTop > 600){
+                menu.classList.add("menu--alt");
+                btngoup.style.display="block";
+            }else{
+                menu.classList.remove("menu--alt");
+                btngoup.style.display="none";
+            }
+            });
+
+            var gotologin = document.querySelector(".gotologin");
+            gotologin.addEventListener("mouseover", mOver, false);
+            gotologin.addEventListener("mouseout", mOut, false);
+
+            function mOver(){
+
+                gotologin.classList.add("animate__pulse");
+
+            }
+
+            function mOut(){
+
+                gotologin.classList.remove("animate__pulse");
+
+            }
+
+            var logo = document.querySelector(".logo");
+            logo.addEventListener("mouseover", OverLogo, false);
+            logo.addEventListener("mouseout", OutLogo, false);
+
+            function OverLogo(){
+
+                logo.classList.add("animate__jello");
+
+            }
+
+            function OutLogo(){
+
+                logo.classList.remove("animate__jello");
+
+            }
+
+            var xd = document.querySelector(".mensajexd");
+            xd.addEventListener("mouseover", Overxd, false);
+            xd.addEventListener("mouseout", Outxd, false);
+
+            function Overxd(){
+
+                xd.classList.add("animate__tada");
+
+            }
+
+            function Outxd(){
+
+                xd.classList.remove("animate__tada");
+
+            }
+
+            
+
+            var dat   ; 
+            let miCanvas = document.getElementById("dias").getContext("2d");
+            let miCanvas1 = document.getElementById("casos").getContext("2d");
+            let miCanvas2 = document.getElementById("infectados").getContext("2d");
+            let miCanvas3 = document.getElementById("resultados").getContext("2d");
+
+            //Grafica line casos por dias
+            function graficar() { 
+
+                const info = {};
+                const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(info)
+                    };
+                fetch('/graph', options);
+            } 
+
+            var socket = io() ;
+                
+            socket.on('lineagrap', function (dato){
+                var fech = new Array() ;
+                var num  =  new Array() ;
+                dat = dato.lineadata; 
+                for (var i = 0; i < dat.length; i++) {
+                    fech[i] = dat[i]['Fechaexamen'].split('T')[0]
+                }
+                
+                for (var i = 0; i < dat.length; i++) {
+                    num[i] = dat[i]['num']
+                }
+
+            Chart.defaults.global.defaultFontColor = "#000";
+
+            var defaultOptions = {
+
+                    plugins: {
+                        legend: {
+                            labels: {
+                                // This more specific font property overrides the global property
+                                font: {
+                                    size: 24,
+                                    family:'Arial',
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    }
+            }
+            var chart = new Chart(miCanvas, {
+                type: 'line',
+                data: {
+                labels: fech,
+                datasets: [{
+                label: "Casos por dia",
+                data: num,
+                borderColor: 'blue',
+                options: defaultOptions
+                }]
+                },
+            })
+
+            });
+            //Grafica PIE casos totales
+            function pie() {
+
+            const info = {};
+            const options = {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(info)
+                };
+            fetch('/piediagram', options);
+
+            }
+
+            socket.on('piegraph', function (dato){
+            var nombre = new Array() ;
+            var numero  =  new Array() ;
+            dat = dato.lineadata; 
+            for (var i = 0; i < dat.length; i++) {
+                nombre[i] = dat[i]['nombre']
+            }
+
+            for (var i = 0; i < dat.length; i++) {
+                numero[i] = dat[i]['numero']
+            }
+            
+            console.log (dat)
+            Chart.defaults.global.defaultFontColor = "#000";
+            var chart = new Chart(miCanvas1, { 
+                type: 'pie', 
+                data: { 
+                labels: nombre, 
+                datasets: [{ 
+                    data: numero, 
+                    backgroundColor: ["#FFD100","#FE6C01","#FF0000"] 
+                }] 
+                }, 
+            })  
+            });
+
+            //Grafica PIE Infectados
+            function pie2() {
+
+                const info = {};
+                const options = {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(info)
+                };
+                fetch('/piediagram2', options);
+            }
+
+            socket.on('piegraph2', function (dato){
+            var nombre = new Array() ;
+            var numero  =  new Array() ;
+            dat = dato.lineadata; 
+            for (var i = 0; i < dat.length; i++) {
+                nombre[i] = dat[i]['nombre']
+            }
+
+            for (var i = 0; i < dat.length; i++) {
+                numero[i] = dat[i]['numero']
+            }
+            
+
+            Chart.defaults.global.defaultFontColor = "#000"; 
+            var chart = new Chart(miCanvas2, { 
+                type: 'pie', 
+                data: { 
+                labels: nombre, 
+                datasets: [{ 
+                    data: numero, 
+                    backgroundColor: ["#0055FF","#FFD100","#FE6C01","#FF0000"] 
+                }] 
+                }, 
+            })  
+            });
+
+
+            //Grafica PIE Resultados
+            function pie3() {
+
+                const info = {};
+                const options = {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(info)
+                };
+                fetch('/piediagram3', options);
+            }
+
+            socket.on('piegraph3', function (dato){
+            var Resultado = new Array() ;
+            var total  =  new Array() ;
+            dat = dato.lineadata; 
+            for (var i = 0; i < dat.length; i++) {
+                Resultado[i] = dat[i]['Resultado']
+            }
+
+            for (var i = 0; i < dat.length; i++) {
+                total[i] = dat[i]['total']
+            }
+            
+
+            Chart.defaults.global.defaultFontColor = "#000"; 
+            var chart = new Chart(miCanvas3, { 
+                type: 'pie', 
+                data: { 
+                labels: Resultado, 
+                datasets: [{ 
+                    data: total, 
+                    backgroundColor: ["#22E322","#FF0000"] 
+                }] 
+                }, 
+            })  
+            });
+
+
+            setTimeout(() =>{
+                graficar();
+                pie();
+                pie2();
+                pie3();
+            }, 100)
+
+        </script>
+
+
+
+    </body>
+
+</html>

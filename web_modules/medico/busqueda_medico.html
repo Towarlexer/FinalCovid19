@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <title> Médicos - Búsqueda de Casos </title>
+        <link rel="stylesheet" type="text/css" href="/resources/css/busqueda_style.css">
+        <link rel="icon" href="/resources/images/covidicono.ico">
+        <link href="/resources/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="/resources/script/ionicons/dist/ionicons.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/resources/css/animate.min.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin="">
+         </script>
+         <script src="/resources/script/sweetalert2.js"></script>
+    </head>
+
+    <body>
+         
+        <main class="main"> 
+            <div class="user" id="container-usuario" style="display: none;">
+                <a class="d-block text-ligh pad" style="color: #29071e; text-decoration: none;"><ion-icon name="person" style="font-size: 2vw;"></ion-icon><b id="usuarioconectado" style="font-size: 2vw;"></b></a>
+            </div>
+
+            <div id="sidebar-contain" class="bgprimary">
+                <div class="log">
+                    <a href="/" ><img class="logo animate__animated" src="/resources/images/logo_covid.svg#Layer_1"></img></a>
+                </div>
+                
+                <div class="menu">
+                    <a href="/dashboard/doctor/home" class="d-block text-light p-5 menu-content1 animate__animated
+                    "><ion-icon name="home"></ion-icon>Inicio</a>
+                    <a href="/dashboard/doctor/general-map" class="d-block text-light p-5 menu-content2 animate__animated
+                    "><ion-icon name="map"></ion-icon>Mapa general</a>
+                    <a class="d-block text-light p-5 " style="background-color: #e42e73; cursor: default;"><ion-icon name="search"></ion-icon>Búsqueda específica</a>
+                    <form action="/logout" method="POST" id="logout"></form>
+                     <a onclick="confirmlogout();" class="d-block text-light p-5 menu-content-logout animate__animated
+                    " style="cursor: pointer;"><ion-icon name="log-out" style="cursor: pointer;"></ion-icon>Cerrar Sesión</a>
+                </div>
+
+                </section>
+            </div>
+
+            <section class="register">
+                <div class="visualizar">
+                <div class="contain">
+                    <h2>Busqueda de Casos</h2>
+                    <input class="Data" type="text" placeholder="Cédula">
+                    <input class="Data" type="text" placeholder="Código de Caso">
+                    <form>
+                        <input class="boton" onclick="" type="submit" value="Buscar">
+                    </form>
+                </div>
+                
+                <div class="contain2">
+                    <h2>Información del Paciente</h2>
+                    <div class="cuadritos">
+                        <label class="cuadritos-content" for="Nombre">Nombre</label>
+                        <input class="Data" type="text" id="ID">
+                    </div>
+                    <div class="cuadritos">
+                        <label class="cuadritos-content" for="Nombre">Nombre</label>
+                        <input class="Data" type="text" id="Cedula">
+                    </div>
+                    <div class="cuadritos">
+                        <label class="cuadritos-content" for="Nombre">Nombre</label>
+                        <input class="Data" type="text" id="Nombre">
+                    </div>
+
+                    <div class="cuadritos">
+                        <label class="cuadritos-content" for="Apellido">Apellido</label>
+                        <input class="Data" type="text" id="Apellido">
+                    </div>
+
+                    <div class="cuadritos">
+                        <label class="cuadritos-content" for="Nacimiento">Fecha de Nacimiento</label>
+                        <input class="Data" type="text" id="Nacimiento">
+                    </div>
+
+                    <div class="cuadritos">
+                        <label class="cuadritos-content" for="Residencia">Dirección de Residencia</label>
+                        <input class="Data" type="text" id="Residencia">
+                    </div>
+
+                    <div class="cuadritos">
+                        <label class="cuadritos-content" for="trabajo">Dirección de trabajo</label>
+                        <input class="Data" type="text" id="trabajo">
+                    </div>
+                    
+                    <div class="cuadritos">
+                        <label class="cuadritos-content" for="sex">Sexo</label>
+                        <input class="Data" type="text" id="sex">
+                    </div>
+
+                    <div class="cuadritos">
+                        <label class="cuadritos-content" for="Resultado">Resultado</label>
+                        <input class="Data" type="text" id="Resultado">
+                    </div>
+
+                    <div class="cuadritos">
+                        <label class="cuadritos-content" for="Fexam">Fecha de Examen</label>
+                        <input class="Data" type="text" id="Fexam">
+                    </div>
+                </div>
+            </div>
+
+                <div id="map"></div>
+            </section>
+        </main>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/resources/script/userlogged.js"></script>
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+        <script src="/resources/script/map.js"></script>
+        <script src="/resources/script/historicos.js"></script>
+
+        <script>
+
+            var logo = document.querySelector(".logo");
+            logo.addEventListener("mouseover", OverLogo, false);
+            logo.addEventListener("mouseout", OutLogo, false);
+
+            function OverLogo(){
+
+                logo.classList.add("animate__jello");
+
+            }
+
+            function OutLogo(){
+
+                logo.classList.remove("animate__jello");
+
+            }
+
+            var menu1 = document.querySelector(".menu-content1");
+            menu1.addEventListener("mouseover", mOver1, false);
+            menu1.addEventListener("mouseout", mOut1, false);
+
+            function mOver1(){
+
+                menu1.classList.add("animate__pulse");
+
+            }
+
+            function mOut1(){
+
+                menu1.classList.remove("animate__pulse");
+
+            }
+
+            var menu2 = document.querySelector(".menu-content2");
+            menu2.addEventListener("mouseover", mOver2, false);
+            menu2.addEventListener("mouseout", mOut2, false);
+
+            function mOver2(){
+
+                menu2.classList.add("animate__pulse");
+
+            }
+
+            function mOut2(){
+
+                menu2.classList.remove("animate__pulse");
+
+            }
+
+            var menulog = document.querySelector(".menu-content-logout");
+            menulog.addEventListener("mouseover", mOverl, false);
+            menulog.addEventListener("mouseout", mOutl, false);
+
+            function mOverl(){
+
+                menulog.classList.add("animate__shakeX");
+
+            }
+
+            function mOutl(){
+
+                menulog.classList.remove("animate__shakeX");
+
+            }
+
+
+
+        </script>
+    </body>
+  
+</html>

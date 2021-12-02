@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <title> Ayudantes - Página Principal </title>
+        <link rel="stylesheet" type="text/css" href="/resources/css/ayudante_style.css">
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css"/>
+        <link rel="icon" href="/resources/images/covidicono.ico">
+        <link href="/resources/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="/resources/script/ionicons/dist/ionicons.js"></script>
+        <script src="/resources/script/sweetalert2.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/resources/css/animate.min.css">
+    </head>
+
+    <body>
+        <main class="main">
+
+            <div class="user" id="container-usuario" style="display: none;">
+                <a class="d-block text-ligh pad" style="color: #29071e; text-decoration: none;"><ion-icon name="person" style="font-size: 2vw;"></ion-icon><b id="usuarioconectado" style="font-size: 2vw;"></b></a>
+            </div>
+
+               
+            <div id="sidebar-contain" class="bgprimary">
+                <div class="log">
+                    <a href="/" ><img class="logo animate__animated" src="/resources/images/logo_covid.svg#Layer_1"></img></a>
+                </div>
+                
+                <div class="menu">
+                    <a class="d-block text-light p-5" style="background-color: #e42e73; cursor: default;"><ion-icon name="home"></ion-icon>Inicio</a>
+                    <a href="/dashboard/assistant/cases-register" class="d-block text-light p-5 menu-content1 animate__animated
+                    "><ion-icon name="add-circle"></ion-icon>Registrar Casos</a>
+                    <a href="/dashboard/assistant/cases-gestion" class="d-block text-light p-5 menu-content2 animate__animated
+                    "><ion-icon name="create"></ion-icon>Gestionar Casos</a>
+                    <form action="/logout" method="POST" id="logout"></form>
+                     <a onclick="confirmlogout();" class="d-block text-light p-5 menu-content-logout animate__animated
+                    " style="cursor: pointer;"><ion-icon name="log-out" style="cursor: pointer;"></ion-icon>Cerrar Sesión</a>
+                </div>
+            </div>
+
+            <section class="info">
+                <h2>Bienvenido, Ayudante</h2>
+                <h5>Seleccione en el panel izquierdo la acción a realizar</h5>
+                <h4>
+                    La recopilación y tratamiento de los datos de los clíentes tiene como finalidad aportar en las estadísticas
+                    del gobierno nacional y el ministerio de salud frente al manejo de la emergencia sanitaria ocasionada por el
+                    Covid-19. 
+                    Recuerde que se deben mantener la información de los clientes de manera confidencial. La divulgación inapropiada de 
+                    estos datos sin autorización alguna, traerá consigo multas, sanciones o despidos.  
+                </h4>
+            </section>
+        </main>
+
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/resources/script/userlogged.js"></script>
+        
+        <script>
+
+            var logo = document.querySelector(".logo");
+            logo.addEventListener("mouseover", OverLogo, false);
+            logo.addEventListener("mouseout", OutLogo, false);
+
+            function OverLogo(){
+
+                logo.classList.add("animate__jello");
+
+            }
+
+            function OutLogo(){
+
+                logo.classList.remove("animate__jello");
+
+            }
+
+            var menu1 = document.querySelector(".menu-content1");
+            menu1.addEventListener("mouseover", mOver1, false);
+            menu1.addEventListener("mouseout", mOut1, false);
+
+            function mOver1(){
+
+                menu1.classList.add("animate__pulse");
+
+            }
+
+            function mOut1(){
+
+                menu1.classList.remove("animate__pulse");
+
+            }
+
+            var menu2 = document.querySelector(".menu-content2");
+            menu2.addEventListener("mouseover", mOver2, false);
+            menu2.addEventListener("mouseout", mOut2, false);
+
+            function mOver2(){
+
+                menu2.classList.add("animate__pulse");
+
+            }
+
+            function mOut2(){
+
+                menu2.classList.remove("animate__pulse");
+
+            }
+
+            var menulog = document.querySelector(".menu-content-logout");
+            menulog.addEventListener("mouseover", mOverl, false);
+            menulog.addEventListener("mouseout", mOutl, false);
+
+            function mOverl(){
+
+                menulog.classList.add("animate__shakeX");
+
+            }
+
+            function mOutl(){
+
+                menulog.classList.remove("animate__shakeX");
+
+            }
+
+        </script>
+        
+
+    </body>
+
+</html>
