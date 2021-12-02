@@ -223,7 +223,7 @@ app.post('/authorization', async (req, res) =>{
   const pass = req.body.pass;
   let passwordHashed = await bcryptjs.hash(pass, 8);
   if (user && pass){
-    con.query('SELECT * FROM administracion WHERE Usuario= ?', [user], async(error, results) =>{
+    con.query('SELECT * FROM Administracion WHERE Usuario= ?', [user], async(error, results) =>{
       if(results.length==0 || !(await bcryptjs.compare(pass, results[0].Contraseña))){
         res.render('login',{
           alert: true,
