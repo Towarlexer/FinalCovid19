@@ -477,7 +477,7 @@ app.post ('/map2',function (req, res){
     });
   
   });
-  
+  res.end("");
 });
 
 
